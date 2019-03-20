@@ -3,6 +3,7 @@ import { Layout, Menu, Icon } from 'antd';
 import AdminMainContent from './components/MainContent';
 import MyFooter from '../components/Layout/Footer';
 import React,{ Component } from 'react';
+import {Link} from 'react-router-dom';
 import {Container} from 'reactstrap';
 const {
   Header, Content, Footer, Sider,
@@ -24,15 +25,16 @@ class AdminLayout extends Component{
       <div className="logo" />
       <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
         <Menu.Item key="1">
-          <Icon type="plus" />
-          <span className="nav-text">Create Templates</span>
+          <Icon type="plus" style={{color:'green'}}/>
+          <span className="nav-text"><Link style={{textDecoration:'none',color:'white'}} to="/CreateTemplates">Create Templates</Link></span>
         </Menu.Item>
+        
         <Menu.Item key="2">
-          <Icon type="reconciliation" />
+          <Icon type="reconciliation" style={{color:'red'}}/>
           <span className="nav-text">Initialize Evaluation</span>
         </Menu.Item>
-        <Menu.Item key="3">
-          <Icon type="bar-chart" />
+        <Menu.Item key="3" onClick={()=>{}}>
+          <Icon type="bar-chart" style={{color:'purple'}}/>
           <span className="nav-text">See reports</span>
         </Menu.Item>
       </Menu>

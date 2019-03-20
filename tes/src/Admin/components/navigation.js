@@ -28,7 +28,7 @@ class Navigation extends Component {
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1">
-              <Icon type="user" />
+              <Icon type="user" twoToneColor="#52c41a"/>
               <span>nav 1</span>
             </Menu.Item>
             <Menu.Item key="2">

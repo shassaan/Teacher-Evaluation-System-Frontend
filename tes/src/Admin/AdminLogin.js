@@ -24,7 +24,9 @@ class AdminLogin extends Component{
 
 
 
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="primary" htmlType="submit" className="login-form-button" onClick={()=>{
+                                    this.props.updateAuth(true);
+                            }}>
                             Log in
             </Button><br />
 
