@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{ Component } from "react";
 import {Container} from 'reactstrap';
 class AdminMainContent extends Component{
     constructor(props){
@@ -8,7 +8,7 @@ class AdminMainContent extends Component{
         return (
             
                <Container>
-               {this.props.children}
+                 {this.props.children}
                </Container>
             
         );

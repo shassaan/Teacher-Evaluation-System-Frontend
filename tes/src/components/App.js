@@ -14,11 +14,12 @@ import AdminLayout from '../Admin/Layout';
 import Navigation from "../Admin/components/navigation";
 import CreateTemplates from "../Admin/components/CreateTemplates";
 import LoginForm from "./specialComponents/login";
+import MyFooter from "./Layout/Footer";
 const { Footer } = Layout;
 class App extends Component {
     state = {
-        userAuth: false,
-        adminAuth: false
+        userAuth: window.localStorage.getItem("userAuth") === null ? false:window.localStorage.getItem("userAuth"),
+        adminAuth: window.localStorage.getItem("adminAuth") === null ? false:window.localStorage.getItem("adminAuth")
     }
 
     constructor(props) {
@@ -26,22 +27,19 @@ class App extends Component {
         this.updateUserAuth = this.updateUserAuth.bind(this);
         this.updateAdminAuth = this.updateAdminAuth.bind(this);
     }
-
-    
-    
     render() {
         return (
             <>
                 <Router>
                     <Route path="/" exact strict component={() => {
-                        if (this.state.userAuth) {
+                        if (this.state.userAuth == "true") {
                             return <h1>User Home</h1>
                         } else {
                             return <Redirect to="/UserLogin" />
                         }
                     }} />
                     <Route path="/admin" exact strict component={() => {
-                        if (this.state.adminAuth) {
+                        if (this.state.adminAuth == "true") {
                             return <Redirect to="/AdminHome" />
                         } else {
                             return <Redirect to="/AdminLogin" />
@@ -49,7 +47,7 @@ class App extends Component {
                     }} />
 
                     <Route path="/AdminLogin" exact strict component={() => {
-                        if (this.state.adminAuth) {
+                        if (this.state.adminAuth == "true") {
                             return <Redirect to="/AdminHome" />
                         } else {
                             return (
@@ -62,11 +60,11 @@ class App extends Component {
 
 
                     <Route path="/AdminHome" exact strict component={() => {
-                        if (this.state.adminAuth) {
+                        if (this.state.adminAuth == "true") {
                             return (
                                 <AdminLayout>
                                     <AdminMainContent>
-                                        <h1>Hello</h1>
+                                       <h1>Welcome To Dashboard 😊</h1>
                                     </AdminMainContent>
                                 </AdminLayout>
                             );
@@ -75,6 +73,7 @@ class App extends Component {
                                 <>
                                     <AdminMainContent>
                                         <AdminLogin updateAuth={this.updateAdminAuth} />
+                                        <MyFooter/>
                                     </AdminMainContent>
                                 </>
                             );
@@ -82,8 +81,15 @@ class App extends Component {
                     }} />
 
 
+                    <Route path="/Adminlogout" exact strict component={() => {
+                        this.updateAdminAuth(false);
+
+                        return (<Redirect to="/admin"/>);
+                        
+                    }} />
+
                     <Route path="/CreateTemplates" exact strict component={() => {
-                        if (this.state.adminAuth) {
+                        if (this.state.adminAuth == "true") {
                             return (
                                 <AdminLayout>
                                     <AdminMainContent>
@@ -103,25 +109,7 @@ class App extends Component {
                     }} />
 
 
-                    <Route path="/dummy" exact strict component={() => {
-                        if (this.state.adminAuth) {
-                            return (
-                                <AdminLayout>
-                                    <AdminMainContent>
-                                        <h1>dummy</h1>
-                                    </AdminMainContent>
-                                </AdminLayout>
-                            );
-                        } else {
-                            return (
-                                <>
-                                    <AdminMainContent>
-                                        <AdminLogin updateAuth={this.updateAdminAuth} />
-                                    </AdminMainContent>
-                                </>
-                            );
-                        }
-                    }} />
+                    
 
 
 
@@ -134,14 +122,16 @@ class App extends Component {
     }
 
     updateUserAuth(auth) {
+        window.localStorage.setItem("userAuth",auth);
         this.setState({
-            userAuth: auth
+            userAuth: window.localStorage.getItem("userAuth")
         });
     }
 
     updateAdminAuth(auth) {
+        window.localStorage.setItem("adminAuth",auth);
         this.setState({
-            adminAuth: auth
+            adminAuth: window.localStorage.getItem("adminAuth")
         });
     }
 }

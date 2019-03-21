@@ -37,6 +37,10 @@ class AdminLayout extends Component{
           <Icon type="bar-chart" style={{color:'purple'}}/>
           <span className="nav-text">See reports</span>
         </Menu.Item>
+        <Menu.Item key="4" onClick={()=>{}}>
+          <Icon type="logout" style={{color:'golden'}}/>
+          <span className="nav-text"><Link style={{textDecoration:'none',color:'white'}} to="/Adminlogout">logout</Link></span>
+        </Menu.Item>
       </Menu>
     </Sider>
     <Layout style={{ marginLeft: 200 }}>

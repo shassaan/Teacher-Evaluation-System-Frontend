@@ -3,13 +3,14 @@ import { Button, Input ,message} from 'antd';
 import { Container } from 'reactstrap';
 import TemplatesModal from './TemplatesModal';
 import {Modal} from 'antd';
+import TemplateList from './TemplateList';
 class CreateTemplates extends Component {
     state = {
         modalVisibilty:false,
         template:{
-            Id:-1,
-            tName:''
-        }
+            TName:''
+        },
+        templateList:[]
     }
 
 
@@ -33,18 +34,42 @@ class CreateTemplates extends Component {
     handleInput(e){
         this.setState({
             template:{
-                tName:e.target.value
+                TName:e.target.value
             }
         });
     }
 
+
+    componentDidMount(){
+        fetch('https://localhost:44334/api/templates', {
+            method: 'GET',
+            mode:'cors',
+            headers: {
+                Accept:'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin':'*',
+            }
+        }).then(res => {
+            if(res.ok){
+                res.json().then(json=>{
+                    this.setState({
+                         modalVisibilty:false,
+                         templateList:json
+                    });
+                });
+            }
+        }).catch(err => console.log(err));
+    }
+
     postTemplate(){
-        console.log(this.state.template.name);
+        //console.log(this.state.template);
+        let templates = this.state.template;
+        console.log(templates);
         message.loading("Saving Data",1000);
         fetch('https://localhost:44334/api/templates', {
         method: 'POST',
         mode:'cors',
-        body:{templates:this.state.template},
+        body:JSON.stringify(templates),
         headers: {
             Accept:'application/json',
             'Content-Type': 'application/json',
@@ -55,16 +80,23 @@ class CreateTemplates extends Component {
             res.json().then(json=>{
                 message.destroy();
                 message.success("Data Saved");
+                this.setState({
+                    modalVisibilty:false,
+                    templateList:json
+               });
             });
         }
-    }).catch(err => console.log(err));
+    }).catch(err =>{
+        message.destroy();
+        message.error("Error Occured while saving");
+    });
         
     }
     
     render() {
         return (
             <Container>
-                <h2>Create Templates</h2>
+                <h2>📋  Create Templates</h2>
                 <Button type="primary" icon="plus" onClick={this.handleClick.bind(this)}>
                     New
                 </Button>
@@ -76,6 +108,7 @@ class CreateTemplates extends Component {
                 >
                    <table style={{width:'100%'}}><tr><td><Input type="text" placeholder="Template Name" onChange={this.handleInput.bind(this)}/></td><td><Button type="primary" onClick={this.postTemplate.bind(this)}>Create</Button></td></tr></table>
                 </Modal>
+                <TemplateList templateList={this.state.templateList}/>
             </Container>
         );
     }

@@ -6,7 +6,7 @@ class TemplatesModal extends Component{
     constructor(props){
         super(props);
         this.state = {
-            show:true
+            show:this.props.show
         }
     }
 
@@ -24,18 +24,7 @@ class TemplatesModal extends Component{
     render(){        
         return (
             <>
-                <Modal
-                    title="Create Template"
-                    visible={this.state.show}
-                    onOk={this.handleOk.bind(this)}
-                    onCancel={this.handleCancel.bind(this)}
-                    okButtonProps={{ disabled: true }}
-                    cancelButtonProps={{ disabled: true }}
-                >
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                </Modal>
+                
             </>
         );
     }
