@@ -4,6 +4,7 @@ import { Container } from 'reactstrap';
 import TemplatesModal from './TemplatesModal';
 import {Modal} from 'antd';
 import TemplateList from './TemplateList';
+import {getTemplates,postTemplate} from '../../services/TemplateService';
 class CreateTemplates extends Component {
     state = {
         modalVisibilty:false,
@@ -41,41 +42,26 @@ class CreateTemplates extends Component {
 
 
     componentDidMount(){
-        fetch('https://localhost:44334/api/templates', {
-            method: 'GET',
-            mode:'cors',
-            headers: {
-                Accept:'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin':'*',
-            }
-        }).then(res => {
+        
+        const templatePromise= getTemplates() || {};
+        templatePromise.then((res) => {
             if(res.ok){
-                res.json().then(json=>{
+                res.json().then(templates => {
                     this.setState({
-                         modalVisibilty:false,
-                         templateList:json
+                        modalVisibilty:false,
+                        templateList:templates
                     });
-                });
+                })
             }
-        }).catch(err => console.log(err));
+        }).catch(err => message.error("Error Loading Templates"));
     }
 
     postTemplate(){
-        //console.log(this.state.template);
         let templates = this.state.template;
         console.log(templates);
         message.loading("Saving Data",1000);
-        fetch('https://localhost:44334/api/templates', {
-        method: 'POST',
-        mode:'cors',
-        body:JSON.stringify(templates),
-        headers: {
-            Accept:'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin':'*',
-        }
-    }).then(res => {
+        const postPromise = postTemplate(templates) || {};
+        postPromise.then(res => {
         if(res.ok){
             res.json().then(json=>{
                 message.destroy();

@@ -7,17 +7,18 @@ import RadioButton from 'antd/lib/radio/radioButton';
 
 class LoginForm extends Component {
 
-
+    constructor(props) {
+        super(props);
+    }
     render() {
 
         return (
-            <div style={{border:'1px dashed black',padding:'10px',textAlign:'center',borderRadius:'10px'}}>
+            <div className="container">
                 <Form onSubmit={this.handleSubmit} className="login-form">
-                    <h1><span><Icon type="login" style={{color:'green'}}></Icon></span> Login</h1>
+                    <h1><span><Icon type="login" style={{ color: 'green' }}></Icon></span> Login</h1>
                     <Form.Item>
 
                         <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Reg No." />
-
                     </Form.Item>
                     <Form.Item>
 
@@ -25,15 +26,12 @@ class LoginForm extends Component {
 
                     </Form.Item>
                     <Form.Item>
-                        <Radio>Teacher</Radio>
-                        <Radio>Student</Radio>
+                        <Radio name="type">Teacher</Radio>
+                        <Radio name="type">Student</Radio>
                     </Form.Item>
                     <Form.Item>
-
-
-
                         <a className="login-form-forgot" href="">Forgot password</a><br />
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="primary" htmlType="submit" className="login-form-button" onClick={() => { this.props.updateUserAuth(true); }}>
                             Log in
             </Button><br />
 

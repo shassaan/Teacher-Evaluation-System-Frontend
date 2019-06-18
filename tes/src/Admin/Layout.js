@@ -1,4 +1,3 @@
-
 import { Layout, Menu, Icon } from 'antd';
 import AdminMainContent from './components/MainContent';
 import MyFooter from '../components/Layout/Footer';
@@ -18,32 +17,43 @@ class AdminLayout extends Component{
     render(){
         return(
             <Layout>
-    <Sider style={{
-      overflow: 'auto', height: '100vh', position: 'fixed', left: 0,
+    <Sider 
+    breakpoint="lg"
+      collapsedWidth="0"
+      onBreakpoint={(broken) => { console.log(broken); }}
+      onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
+      style={{
+      height: '100vh'
     }}
     >
       <div className="logo" />
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-        <Menu.Item key="1">
+      <Menu theme="dark" mode="vertical">
+      <Menu.Item key="1" onClick={()=>{}}>
+          <Icon type="home" style={{color:'brown'}}/>
+          <span className="nav-text"><Link style={{textDecoration:'none',color:'white'}} to="/AdminHome">Home</Link></span>
+        </Menu.Item>
+        <Menu.Item key="2">
           <Icon type="plus" style={{color:'green'}}/>
           <span className="nav-text"><Link style={{textDecoration:'none',color:'white'}} to="/CreateTemplates">Create Templates</Link></span>
         </Menu.Item>
-        
-        <Menu.Item key="2">
+        <Menu.Item key="3">
           <Icon type="reconciliation" style={{color:'red'}}/>
           <span className="nav-text">Initialize Evaluation</span>
         </Menu.Item>
-        <Menu.Item key="3" onClick={()=>{}}>
+        <Menu.Item key="4">
           <Icon type="bar-chart" style={{color:'purple'}}/>
-          <span className="nav-text">See reports</span>
+          <span className="nav-text"><Link style={{textDecoration:'none',color:'white'}} to="/Reports">Reports</Link></span>
         </Menu.Item>
-        <Menu.Item key="4" onClick={()=>{}}>
+        <Menu.Item key="5">
+          <span className="nav-text"><Link style={{textDecoration:'none',color:'white'}} to="/AssignTemplates">📑 Assign templates</Link></span>
+        </Menu.Item>
+        <Menu.Item key="6" onClick={()=>{}}>
           <Icon type="logout" style={{color:'golden'}}/>
           <span className="nav-text"><Link style={{textDecoration:'none',color:'white'}} to="/Adminlogout">logout</Link></span>
         </Menu.Item>
       </Menu>
     </Sider>
-    <Layout style={{ marginLeft: 200 }}>
+    <Layout>
       <Header style={{ background: '#fff', padding: 0 }} ><Container><h1>Director's Dashboard</h1></Container></Header>
       <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
         <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>

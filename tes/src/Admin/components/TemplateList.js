@@ -1,5 +1,4 @@
 import React from 'react';
-import {Container} from 'reactstrap';
 import {List} from 'antd';
 import Template from './Template';
 import {Styles} from '../../components/Layout/styles/styles';

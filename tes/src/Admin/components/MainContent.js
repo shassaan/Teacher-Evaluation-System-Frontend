@@ -7,9 +7,10 @@ class AdminMainContent extends Component{
     render(){
         return (
             
-               <Container>
-                 {this.props.children}
-               </Container>
+               
+               
+                 <>{this.props.children}</>
+               
             
         );
     }
