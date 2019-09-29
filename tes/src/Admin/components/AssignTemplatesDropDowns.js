@@ -78,16 +78,13 @@ class AssignTemplatesDropDowns extends Component{
                             onChange={this.handleChangeAssignTo}
                             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                         >
-                            <Option value="BCS">BCS</Option>
-                            <Option value="MCS">MCS</Option>
-                            <Option value="BSIT">BSIT</Option>
-                            <Option value="MIT">MIT</Option>
+                            <Option value="Student">Student</Option>
                             <Option value="Teacher">Teacher</Option>
                         </Select>
                     </td>
                 </tr>
                 <tr>
-                    <td><h1>                </h1></td>
+                    <td><h1></h1></td>
                     <td><Button icon="check" type="primary" onClick={this.saveAssignTo}>Assign</Button></td>
                 </tr>
             </table>

@@ -23,3 +23,16 @@ export const postTemplate = (template) => {
         }
     });
 }
+
+export const getTemplateOf = (id) => {
+    return fetch(baseUrl+'/api/templates/'+id, {
+        method: 'GET',
+        mode:'cors',
+        headers: {
+            Accept:'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin':'*',
+        }
+    });
+}
+
